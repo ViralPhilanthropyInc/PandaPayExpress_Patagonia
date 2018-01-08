@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://express.pandapay.io/patagonia/pp-express.css" rel="stylesheet" type="text/css">
+<link href="https://express.pandapay.io/patagonia/normalize.css" rel="stylesheet" type="text/css">
+<div class="ppContainer">
+  <div class="ppHeader ppModalContent">
+    <span id="granteeName" class="granteeName">[Grantee Name]</span>
+    <span class="close">&times;</span>
+  </div>
+  <hr>
+  <div>
+    <div class="ppModalContent ppRegFontBold ppLeftText">
+      <p>This platform provides this donation service to help you direct your funds to effect local impact.</p>
+    </div>
+    <div class="ppDonationInputArea">
+      <span class="inputPrefix">$</span>
+      <input type="text" name="donationAmount" maxlength="7" size="7" class="donationInput" id="donationAmount" autofocus>
+      <br>
+      <span class="mutedReg">USD</span>
+      <p class="mutedDemi">Select your donation amount</p>
+      <div class="row">
+        <div class="col" style="width:25%;">
+          <button class="donationAmountBtn" onclick="updateDonation(5.00)">$5</button>
+        </div>
+        <div class="col" style="width:25%;">
+          <button class="donationAmountBtn" onclick="updateDonation(25.00)">$25</button>
+        </div>
+        <div class="col" style="width:25%;">
+          <button class="donationAmountBtn" onclick="updateDonation(50.00)">$50</button>
+        </div>
+        <div class="col" style="width:25%;">
+          <button class="donationAmountBtn" onclick="updateDonation(100.00)">$100</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ppModalContent ppRegFont ppModalFooter">
+    <label class="control control--checkbox">Cover the processing fee?
+      <input id="coverFee" type="checkbox" />
+      <div class="control__indicator"></div>
+    </label>
+    <div class="tooltip">&#x1F6C8;
+      <span class="tooltiptext">Your donation is securely processed by our partner, PandaPay, with a transaction fee to cover card fees, bank fees,
+        and other processing costs. Please consider chipping in an additional 3% so 100% of your donation goes to
+        <span id="granteeName"
+          class="granteeName">[Grantee Name]</span>. </span>
+    </div>
+    <a href="#" id="nextLink" onclick="proceedToPayment()" class="proceedToPayment">Next</a>
+  </div>
+</div>
+
+<script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
+
+<script type="text/javascript">
+  donation = 0.00
+  function updateDonation(donationNoFee) {
+    donation = donationNoFee
+    document.getElementById("donationAmount").value = parseFloat(donation).toFixed(2);
+    $('a').css({ color: '#333' });
+  }
+  function proceedToPayment() {
+    donation = document.getElementById("donationAmount").value
+    if (donation.length == 0) {
+      console.log("enter a donation amount.");
+    } else {
+      if (document.getElementById("coverFee").checked == false) {
+        donation = Math.ceil(donation * 100) / 100;
+        donation = parseFloat(donation).toFixed(2);
+        amount = donation * 100
+        localStorage.setItem('pandapayDonationAmount', amount);
+        window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html";
+      } else {
+        donationWithFee = donation * 1 + .30 + donation * .039
+        donationWithFee = Math.ceil(donationWithFee * 100) / 100;
+        donationWithFee = parseFloat(donationWithFee).toFixed(2);
+        amount = donationWithFee * 100
+        localStorage.setItem('pandapayDonationAmount', amount);
+        window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html";
+      }
+    }
+  };
+
+  $("input[name=donationAmount]").keyup(function () {
+    if ($(this).val()) {
+      $('a').css({ color: '#333' });
+    }
+    else {
+      $('a').css({ color: '#F8F8F8' });
+    }
+  });
+</script>
+
+</html>

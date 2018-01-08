@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<link href="https://express.pandapay.io/patagonia/pp-express.css" rel="stylesheet" type="text/css">
+<link href="https://express.pandapay.io/patagonia/normalize.css" rel="stylesheet" type="text/css">
+<div class="ppContainer">
+    <div class="ppHeader ppModalContent">
+        <span id="granteeName" class="granteeName">[Grantee Name]</span>
+        <span class="close">&times;</span>
+    </div>
+    <hr>
+    <div class="ppThankYou">
+        <div class="ppDemiBold">
+            <p>Thank You for Your Donation to
+                <span id="granteeName" class="granteeName">[Grantee Name]</span>
+            </p>
+        </div>
+        <div class="ppRegFont">
+            <p>An email receipt will be sent to
+                <span id="customerEmail">[customer email]</span>
+            </p>
+            <p>$
+                <span id="amount">0</span> Donation</p>
+            <p>
+                <span id="cardType">[Card Type]</span> ending in
+                <span id="lastFour">[Card]</span>
+            </p>
+        </div>
+    </div>
+    <button id="ppDonationiFrameClose" class="btn black">Close</button>
+</div>
+
+<script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
+
+<script type="text/javascript">
+    var btn = document.getElementById("ppDonationiFrameClose");
+    btn.onclick = function () {
+        parent.closeModal();
+    }
+
+    document.getElementById("amount").innerHTML = parseFloat(ppAmount / 100).toFixed(2)
+    document.getElementById("cardType").innerHTML = ppCardType
+    document.getElementById("lastFour").innerHTML = ppLastFour
+    document.getElementById("customerEmail").innerHTML = ppReceiptEmail
+
+</script>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<link href="https://express.pandapay.io/patagonia/pp-express.css" rel="stylesheet" type="text/css">
+<link href="https://express.pandapay.io/patagonia/normalize.css" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://d2t45z63lq9zlh.cloudfront.net/panda-v0.0.5.min.js"></script>
+<div class="ppContainer">
+  <div class="ppHeader ppModalContent" >
+    <span class="back">&lt;</span> <span id="granteeName" class="granteeName">[Grantee Name]</span> <span class="close">&times;</span>
+  </div>
+  <hr>
+  <div class="ppLeftText ppModalContent">
+    <p class="ppRegFontBold">Payment Information<span style="float: right;">$<span id="amount">0</span></span></p>
+    <div>
+      <form id="panda_cc_form">
+       <input type="email" class="form-control" id="receipt_email" placeholder=" Email" required><br>
+       <label class="control control--checkbox ppRegFont">Sign up for email updates
+        <input id="emailUpdates" type="checkbox"/>
+        <div class="control__indicator"></div>
+      </label><br>
+      <div class="row">
+        <div class="col" style="width: 50%">
+          <input type="text" class="form-control" id="firstName" data-panda="first_name" placeholder=" First Name" required>
+        </div>
+        <div class="col" style="width: 50%">
+          <input type="text" class="form-control" id="lastName" data-panda="last_name" placeholder=" Last Name" required>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col" style="width: 55%">
+          <input type="text" class="form-control creditCardText" id="cardNumber" data-panda="credit_card" maxlength="19" placeholder=" Credit Card Number" required>
+        </div>
+        <div class="col" style="width: 25%">
+          <input type="text" class="form-control" data-panda="expiration" placeholder=" MM/YYYY" required>
+        </div>
+        <div class="col" style="width: 20%">
+          <input type="text" class="form-control" data-panda="cvv" placeholder=" CVV" required>
+        </div>
+      </div>
+      <br>
+      <div id="tokenize" style="text-align: center;">
+        <button class="btn orange" id="Tbutton" type="submit">Donate</button> 
+      </div>
+    </form>
+    <br>
+    <!--<label class="control control--checkbox ppRegFont">Share my contact info with <span class="granteeName">[Grantee Name]</span>
+      <input id="emailUpdates" type="checkbox"/>
+      <div class="control__indicator"></div>
+    </label>-->
+    <p class="finePrint">This platform uses PandaPay to securely process and disburse your charitable donations. <a class="infoLink" target="_blank" href="https://www.pandapay.io/poweredby">Click here</a> for more about how it works and the terms of your donation.</p>
+  </div>
+</div>
+</div>
+
+<script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
+
+<script>
+
+  document.getElementById("firstName").value = ppFirstName;
+  document.getElementById("lastName").value = ppLastName;
+  // Call Panda.init() with your Panda Publishable Key and the DOM id of the
+  // credit card-related form element
+  Panda.init('pk_test_sXCq0s7i0b5HKg7YAwLEJw', 'panda_cc_form');
+  Panda.on('success', function(cardToken) {
+    var email = document.getElementById("receipt_email").value;
+    localStorage.setItem('pandapayReceiptEmail', email);
+    var cardType = cc_brand_id(document.getElementById("cardNumber").value);
+    localStorage.setItem('pandapayCardType', cardType);
+    var lastFour = document.getElementById("cardNumber").value.slice(-4);
+    localStorage.setItem('pandapayLastFour', lastFour);
+
+    var url = "https://pandapay.express.alphaparse.io/donation?source="+ cardToken + "&receipt_email=" + email + "&amount=" + ppAmount + "&currency=usd&destination=" + ppEin + "&id=1&firstName=" + ppFirstName + "&lastName=" + ppLastName
+	$.ajax({
+             type: "POST",
+             url: url,
+             contentType: "application/json;",
+             dataType: "json",
+             crossDomain: true,
+             success: function(data){
+             	successfulTransaction();
+             },
+             error: function(xhr, status, error) {
+              console.log(error);
+            }
+         });
+  });
+ 
+  Panda.on('error', function(errors) {
+    console.log(errors);
+    var alertText = ""
+    for(var error in errors){
+      if(errors.hasOwnProperty(error)){
+     alertText = alertText + "Error: " + errors[error].message + "\n"
+      }
+    }
+    alert(alertText);
+  });
+
+  $('.creditCardText').keyup(function() {
+  var foo = $(this).val().split("-").join(""); // remove hyphens
+  if (foo.length > 0) {
+    foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
+  }
+  $(this).val(foo);
+});
+
+document.getElementById("amount").innerHTML = parseFloat(ppAmount / 100).toFixed(2);
+var backButton = document.getElementsByClassName("back")[0];
+  backButton.onclick = function() {
+    window.location = 'https://express.pandapay.io/patagonia/pandapay-express-iframe.html';
+  };
+
+  function cc_brand_id(cur_val) {
+  var sel_brand;
+
+  // the regular expressions check for possible matches as you type, hence the OR operators based on the number of chars
+  // regexp string length {0} provided for soonest detection of beginning of the card numbers this way it could be used for BIN CODE detection also
+
+  //JCB
+  jcb_regex = new RegExp('^(?:2131|1800|35)[0-9]{0,}$'); //2131, 1800, 35 (3528-3589)
+  // American Express
+  amex_regex = new RegExp('^3[47][0-9]{0,}$'); //34, 37
+  // Diners Club
+  diners_regex = new RegExp('^3(?:0[0-59]{1}|[689])[0-9]{0,}$'); //300-305, 309, 36, 38-39
+  // Visa
+  visa_regex = new RegExp('^4[0-9]{0,}$'); //4
+  // MasterCard
+  mastercard_regex = new RegExp('^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[01]|2720)[0-9]{0,}$'); //2221-2720, 51-55
+  maestro_regex = new RegExp('^(5[06789]|6)[0-9]{0,}$'); //always growing in the range: 60-69, started with / not something else, but starting 5 must be encoded as mastercard anyway
+  //Discover
+  discover_regex = new RegExp('^(6011|65|64[4-9]|62212[6-9]|6221[3-9]|622[2-8]|6229[01]|62292[0-5])[0-9]{0,}$');
+  ////6011, 622126-622925, 644-649, 65
+
+
+  // get rid of anything but numbers
+  cur_val = cur_val.replace(/\D/g, '');
+
+  // checks per each, as their could be multiple hits
+  //fix: ordering matter in detection, otherwise can give false results in rare cases
+  if (cur_val.match(jcb_regex)) {
+    sel_brand = "JCB";
+  } else if (cur_val.match(amex_regex)) {
+    sel_brand = "AMEX";
+  } else if (cur_val.match(diners_regex)) {
+    sel_brand = "Diners Club";
+  } else if (cur_val.match(visa_regex)) {
+    sel_brand = "VISA";
+  } else if (cur_val.match(mastercard_regex)) {
+    sel_brand = "MasterCard";
+  } else if (cur_val.match(discover_regex)) {
+    sel_brand = "Discover";
+  } else if (cur_val.match(maestro_regex)) {
+    if (cur_val[0] == '5') { //started 5 must be mastercard
+      sel_brand = "MasterCard";
+    } else {
+      sel_brand = "Maestro"; //maestro is all 60-69 which is not something else, thats why this condition in the end
+    }
+  } else {
+    sel_brand = "Card";
+  }
+
+  return sel_brand;
+}
+
+</script>
+
+</html>
