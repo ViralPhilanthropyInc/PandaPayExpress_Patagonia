@@ -11,10 +11,10 @@ function successfulTransaction(data) {
   	window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-thank-you.html";
     };   
 
-var closeButton = document.getElementsByClassName("close")[0];
-	closeButton.onclick = function() {
-		parent.remoteCloseModal();   
-	};
+// var closeButton = document.getElementsByClassName("close")[0];
+//	closeButton.onclick = function() {
+//		parent.remoteCloseModal();   
+//	};
 
 var granteeNames = document.getElementsByClassName("granteeName"),
     i, len;
