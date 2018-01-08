@@ -8,7 +8,7 @@ var ppCardType = localStorage.getItem('pandapayCardType');
 var ppLastFour = localStorage.getItem('pandapayLastFour');
 
 function successfulTransaction(data) {
-  	window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-thank-you.html";
+  	window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-thank-you.html";
     };   
 
 var closeButton = document.getElementsByClassName("close")[0];

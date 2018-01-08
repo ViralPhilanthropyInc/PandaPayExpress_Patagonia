@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<link href="https://express.pandapay.io/patagonia/pp-express.css" rel="stylesheet" type="text/css">
-<link href="https://express.pandapay.io/patagonia/normalize.css" rel="stylesheet" type="text/css">
+<link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.css" rel="stylesheet" type="text/css">
+<link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/normalize.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://d2t45z63lq9zlh.cloudfront.net/panda-v0.0.5.min.js"></script>
 <div class="ppContainer">
@@ -54,7 +54,7 @@
 </div>
 </div>
 
-<script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
+<script src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.js"></script>
 
 <script>
 
@@ -109,7 +109,7 @@
 document.getElementById("amount").innerHTML = parseFloat(ppAmount / 100).toFixed(2);
 var backButton = document.getElementsByClassName("back")[0];
   backButton.onclick = function() {
-    window.location = 'https://express.pandapay.io/patagonia/pandapay-express-iframe.html';
+    window.location = 'https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe.html';
   };
 
   function cc_brand_id(cur_val) {

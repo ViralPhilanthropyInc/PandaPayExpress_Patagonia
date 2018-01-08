@@ -17,7 +17,7 @@ function loadPPModal(charityName, charityEIN, firstName, lastName) {
 	localStorage.setItem('pandapayCharityEIN', charityEIN);
 	localStorage.setItem('pandapayFirstName', firstName);
 	localStorage.setItem('pandapayLastName', lastName);
-	ppiframe.src = 'https://express.pandapay.io/patagonia/pandapay-express-iframe.html'; ppModal.style.display = "block";
+	ppiframe.src = 'https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe.html'; ppModal.style.display = "block";
 }
 window.onclick = function (event) { if (event.target == ppModal) { closeModal(); } }
 var remoteCloseModal = closeModal();

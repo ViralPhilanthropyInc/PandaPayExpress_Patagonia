@@ -316,18 +316,18 @@ hr {
 
 @font-face {
     font-family: AvenirNextLTPro;
-    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Regular.otf") format("opentype");
+    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Regular.otf") format("opentype");
 }
 
 @font-face {
     font-family: AvenirNextLTPro;
     font-weight: bold;
-    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Bold.otf") format("opentype");
+    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Bold.otf") format("opentype");
 }
 
 @font-face {
     font-family: AvenirNextLTPro-Demi;
-    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Demi.otf") format("opentype");
+    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Demi.otf") format("opentype");
 }
 
 

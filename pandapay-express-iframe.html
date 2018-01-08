@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link href="https://express.pandapay.io/patagonia/pp-express.css" rel="stylesheet" type="text/css">
-<link href="https://express.pandapay.io/patagonia/normalize.css" rel="stylesheet" type="text/css">
+<link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.css" rel="stylesheet" type="text/css">
+<link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/normalize.css" rel="stylesheet" type="text/css">
 <div class="ppContainer">
   <div class="ppHeader ppModalContent">
     <span id="granteeName" class="granteeName">[Grantee Name]</span>
@@ -50,7 +50,7 @@
   </div>
 </div>
 
-<script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
+<script src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.js"></script>
 
 <script type="text/javascript">
   donation = 0.00
@@ -69,14 +69,14 @@
         donation = parseFloat(donation).toFixed(2);
         amount = donation * 100
         localStorage.setItem('pandapayDonationAmount', amount);
-        window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html";
+        window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-payment.html";
       } else {
         donationWithFee = donation * 1 + .30 + donation * .039
         donationWithFee = Math.ceil(donationWithFee * 100) / 100;
         donationWithFee = parseFloat(donationWithFee).toFixed(2);
         amount = donationWithFee * 100
         localStorage.setItem('pandapayDonationAmount', amount);
-        window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html";
+        window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-payment.html";
       }
     }
   };
