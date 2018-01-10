@@ -71,7 +71,7 @@
     var lastFour = document.getElementById("cardNumber").value.slice(-4);
     localStorage.setItem('pandapayLastFour', lastFour);
 
-    var url = "https://pandapay.express.alphaparse.io/donation?source="+ cardToken + "&receipt_email=" + email + "&amount=" + ppAmount + "&currency=usd&destination=" + ppEin + "&id=1&firstName=" + ppFirstName + "&lastName=" + ppLastName + "&donor_cover_fees=" + "&platform_custom_field="
+    var url = "https://api.express.pandapay.io/donation?source="+ cardToken + "&receipt_email=" + email + "&amount=" + ppAmount + "&currency=usd&destination=" + ppEin + "&id=patagonia_paw_test&firstName=" + ppFirstName + "&lastName=" + ppLastName + "&donor_cover_fees=" + "&platform_custom_field="
 	$.ajax({
              type: "POST",
              url: url,
