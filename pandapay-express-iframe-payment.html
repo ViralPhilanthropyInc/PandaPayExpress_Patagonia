@@ -62,7 +62,7 @@
   document.getElementById("lastName").value = ppLastName;
   // Call Panda.init() with your Panda Publishable Key and the DOM id of the
   // credit card-related form element
-  Panda.init('pk_test_sXCq0s7i0b5HKg7YAwLEJw', 'panda_cc_form');
+  Panda.init('pk_test_iuMlvLlJE-QR9kE49ZFSOw', 'panda_cc_form');
   Panda.on('success', function(cardToken) {
     var email = document.getElementById("receipt_email").value;
     localStorage.setItem('pandapayReceiptEmail', email);
