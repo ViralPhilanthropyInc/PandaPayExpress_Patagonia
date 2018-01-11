@@ -41,7 +41,7 @@
       </div>
       <br>
       <div id="tokenize" style="text-align: center;">
-        <button class="btn orange" id="Tbutton" type="submit" onClick="this.value='Submitting..';this.disabled=true;">Donate</button> 
+        <button class="btn orange" id="Tbutton" type="submit">Donate</button> 
       </div>
     </form>
     <br>
@@ -70,7 +70,6 @@
     localStorage.setItem('pandapayCardType', cardType);
     var lastFour = document.getElementById("cardNumber").value.slice(-4);
     localStorage.setItem('pandapayLastFour', lastFour);
-
     var url = "https://api.express.pandapay.io/donation?source="+ cardToken + "&receipt_email=" + email + "&amount=" + ppAmount + "&currency=usd&destination=" + ppEin + "&id=patagonia_paw_test&firstName=" + ppFirstName + "&lastName=" + ppLastName + "&donor_cover_fees=" + "&platform_custom_field="
 	$.ajax({
              type: "POST",
