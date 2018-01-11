@@ -9,7 +9,7 @@ ppModal.style.width = "100%";
 ppModal.style.height = "100%";
 ppModal.style.overflow = "auto";
 ppModal.style.backgroundColor = "rgba(0,0,0,0.8)";
-ppModal.innerHTML = "<div class=\"pp-donation-modal-content\" style=\"background-color: #fefefe; margin: 10% auto; padding: 0px; border: 0px; width: 100%;\"><iframe src=\"\" height=\"350px\" width=\"440\" seamless='seamless' frameBorder=\"0\" id=\"pp-donation-iframe\"></iframe></div>"
+ppModal.innerHTML = "<div class=\"pp-donation-modal-content\" style=\"background-color: #fefefe; margin: 10% auto; padding: 0px; border: 0px; width: 440px;\"><iframe src=\"\" height=\"350px\" width=\"100%\" seamless='seamless' frameBorder=\"0\" id=\"pp-donation-iframe\"></iframe></div>"
 var ppiframe = document.getElementById("pp-donation-iframe")
 function closeModal() { ppModal.style.display = "none"; }
 function loadPPModal(charityName, charityEIN, firstName, lastName) {
