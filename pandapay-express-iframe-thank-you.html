@@ -4,13 +4,15 @@
 <link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.css" rel="stylesheet" type="text/css">
 <link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/normalize.css" rel="stylesheet" type="text/css">
 <div class="ppContainer">
-    <div class="ppHeader ppModalContent">
-        <span id="granteeName" class="granteeName">[Grantee Name]</span>
-       <!-- <span class="close">&times;</span> -->
+    <div class="ppHeader">
+        <span id="granteeName" class="granteeName" style="font-size:20px; line-height:28px;">[Grantee Name]</span>
     </div>
+    <span class="close" style="position: absolute; top: 5vw; right: 5vw;">
+        <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/x-close.png" height="16px" width="16px">
+    </span>
     <hr>
     <div class="ppThankYou">
-        <div class="ppDemiBold">
+        <div class="ppThankYouText">
             <p>Thank You for Your Donation to
                 <span id="granteeName" class="granteeName">[Grantee Name]</span>
             </p>
@@ -35,26 +37,14 @@
 <script type="text/javascript">
     var btn = document.getElementById("ppDonationiFrameClose");
     btn.onclick = function () {
-        parent.closeModal();
+        window.parent.postMessage("close", "*");
     }
-
-    document.getElementById("amount").innerHTML = parseFloat(ppAmount / 100).toFixed(2)
+    document.getElementById("amount").innerHTML = (parseFloat(ppAmount / 100)).toFixed(2)
     document.getElementById("cardType").innerHTML = ppCardType
     document.getElementById("lastFour").innerHTML = ppLastFour
     document.getElementById("customerEmail").innerHTML = ppReceiptEmail
 
 </script>
 
-<!-- Google Analytics -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-XXXXX-Y', 'auto');
-ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
 
 </html>

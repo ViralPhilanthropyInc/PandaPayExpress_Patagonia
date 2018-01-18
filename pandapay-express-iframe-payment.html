@@ -6,52 +6,69 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://d2t45z63lq9zlh.cloudfront.net/panda-v0.0.5.min.js"></script>
 <div class="ppContainer">
-  <div class="ppHeader ppModalContent" >
-    <!-- <span class="back">&lt;</span> --> <span id="granteeName" class="granteeName">[Grantee Name]</span> <!-- <span class="close">&times;</span>-->
+  <span class="back" style="position: absolute; top: 5vw; left: 5vw;">
+    <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/back-arrow.png" height="16px" width="16px">
+  </span>
+  <div class="ppHeader">
+    <span id="granteeName" class="granteeName" style="font-size:20px; line-height:28px;">[Grantee Name]</span>
   </div>
+  <span class="close" style="position: absolute; top: 5vw; right: 5vw;">
+    <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/x-close.png" height="16px" width="16px">
+  </span>
   <hr>
   <div class="ppLeftText ppModalContent">
-    <p class="ppRegFontBold">Payment Information<span style="float: right;">$<span id="amount">0</span></span></p>
+    <p style="font-family: AvenirNextLTPro-demi; font-size: 16px;">Payment Information
+      <span style="float: right; font-family: AvenirNextLTPro-Bold; font-size: 14px;">$
+        <span id="amount">0</span>
+      </span>
+    </p>
     <div>
       <form id="panda_cc_form">
-       <input type="email" class="form-control" id="receipt_email" placeholder=" Email" required><br>
-       <label class="control control--checkbox ppRegFont">Sign up for email updates
-        <input id="emailUpdates" type="checkbox"/>
-        <div class="control__indicator"></div>
-      </label><br>
-      <div class="row">
-        <div class="col" style="width: 50%">
-          <input type="text" class="form-control" id="firstName" data-panda="first_name" placeholder=" First Name" required>
+        <input type="email" class="form-control" id="receipt_email" placeholder=" Email" required>
+        <br>
+        <div style="padding-top: 8px" class="ppRegFont">
+          <input id="emailUpdates" type="checkbox" />
+          <label for="emailUpdates"></label>
+          <span class="checkboxLabel">Sign up for email updates</span>
         </div>
-        <div class="col" style="width: 50%">
-          <input type="text" class="form-control" id="lastName" data-panda="last_name" placeholder=" Last Name" required>
+        <div class="row" style="padding-top: 20px;">
+          <div class="col" style="width: 50%">
+            <input type="text" class="form-control" style="border-right: none;" id="firstName" data-panda="first_name" placeholder=" First Name" required>
+          </div>
+          <div class="col" style="width: 50%">
+            <input type="text" class="form-control" id="lastName" data-panda="last_name" placeholder=" Last Name" required>
+          </div>
         </div>
-      </div>
+        <br>
+        <div class="row" style="padding-top: 20px;">
+          <div class="col" style="width: 55%">
+            <input type="text" class="form-control creditCardText" style="border-right: none;" id="cardNumber" data-panda="credit_card" maxlength="19" placeholder=" Credit Card Number"
+              required>
+          </div>
+          <div class="col" style="width: 25%">
+            <input type="text" class="form-control" style="border-right: none;" data-panda="expiration" placeholder=" MM/YYYY" required>
+          </div>
+          <div class="col" style="width: 20%">
+            <input type="text" class="form-control" data-panda="cvv" placeholder=" CVV" required>
+          </div>
+        </div>
+        <br>
+        <span id="errorText" class="ppDonationDetails" style="text-align: center;"></span>
+        <div id="tokenize" style="text-align: center;">
+          <button class="btn orange" id="Tbutton" type="submit">
+            <span id="buttonText">Donate</span>
+          </button>
+        </div>
+      </form>
       <br>
-      <div class="row">
-        <div class="col" style="width: 55%">
-          <input type="text" class="form-control creditCardText" id="cardNumber" data-panda="credit_card" maxlength="19" placeholder=" Credit Card Number" required>
-        </div>
-        <div class="col" style="width: 25%">
-          <input type="text" class="form-control" data-panda="expiration" placeholder=" MM/YYYY" required>
-        </div>
-        <div class="col" style="width: 20%">
-          <input type="text" class="form-control" data-panda="cvv" placeholder=" CVV" required>
-        </div>
-      </div>
-      <br>
-      <div id="tokenize" style="text-align: center;">
-        <button class="btn orange" id="Tbutton" type="submit">Donate</button> 
-      </div>
-    </form>
-    <br>
-    <!--<label class="control control--checkbox ppRegFont">Share my contact info with <span class="granteeName">[Grantee Name]</span>
+      <!--<label class="control control--checkbox ppRegFont">Share my contact info with <span class="granteeName">[Grantee Name]</span>
       <input id="emailUpdates" type="checkbox"/>
       <div class="control__indicator"></div>
     </label>-->
-    <p class="finePrint">This platform uses PandaPay to securely process and disburse your charitable donations. <a class="infoLink" target="_blank" href="https://www.pandapay.io/poweredby">Click here</a> for more about how it works and the terms of your donation.</p>
+      <p class="finePrint">This platform uses PandaPay to securely process and disburse your charitable donations.
+        <a class="infoLink" target="_blank" href="https://www.pandapay.io/poweredby">Click here</a> for more about how it works and the terms of your donation.</p>
+    </div>
   </div>
-</div>
 </div>
 
 <script src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.js"></script>
@@ -63,117 +80,124 @@
   // Call Panda.init() with your Panda Publishable Key and the DOM id of the
   // credit card-related form element
   Panda.init('pk_test_iuMlvLlJE-QR9kE49ZFSOw', 'panda_cc_form');
-  Panda.on('success', function(cardToken) {
+  Panda.on('success', function (cardToken) {
     var email = document.getElementById("receipt_email").value;
     localStorage.setItem('pandapayReceiptEmail', email);
     var cardType = cc_brand_id(document.getElementById("cardNumber").value);
     localStorage.setItem('pandapayCardType', cardType);
     var lastFour = document.getElementById("cardNumber").value.slice(-4);
     localStorage.setItem('pandapayLastFour', lastFour);
-    var url = "https://api.express.pandapay.io/donation?source="+ cardToken + "&receipt_email=" + email + "&amount=" + ppAmount + "&currency=usd&destination=" + ppEin + "&id=patagonia_paw_test&firstName=" + ppFirstName + "&lastName=" + ppLastName + "&donor_cover_fees=" + "&platform_custom_field="
-	$.ajax({
-             type: "POST",
-             url: url,
-             contentType: "application/json;",
-             dataType: "json",
-             crossDomain: true,
-             success: function(data){
-             	successfulTransaction();
-             },
-             error: function(xhr, status, error) {
-              console.log(error);
-            }
-         });
+
+    if (document.getElementById("emailUpdates").checked == false) {
+      var platformCustomField = "0"
+    } else {
+      var platformCustomField = "1"
+    }
+    var url = "https://expressapi.pandapay.io/donation?"
+    url = url + "source=" + cardToken
+    url = url + "&receipt_email=" + email
+    url = url + "&amount=" + (ppAmount * 100)
+    url = url + "&currency=usd&destination=" + ppEin
+    url = url + "&id=patagonia_paw_test"
+    url = url + "&firstName=" + document.getElementById("firstName").value
+    url = url + "&lastName=" + document.getElementById("lastName").value
+    url = url + "&donor_cover_fees=" + localStorage.getItem('pandapayDonorCoverFees')
+    url = url + "&platform_custom_field=" + platformCustomField
+    $.ajax({
+      type: "POST",
+      url: url,
+      contentType: "application/json;",
+      dataType: "json",
+      crossDomain: true,
+      success: function (data) {
+        localStorage.setItem('pandapayDonationAmount', data["charge_amount"]);
+        successfulTransaction();
+      },
+      error: function (xhr, status, error) {
+        console.log(error);
+      }
+    });
   });
- 
-  Panda.on('error', function(errors) {
+
+  Panda.on('error', function (errors) {
     console.log(errors);
     var alertText = ""
-    for(var error in errors){
-      if(errors.hasOwnProperty(error)){
-     alertText = alertText + "Error: " + errors[error].message + "\n"
+    for (var error in errors) {
+      if (errors.hasOwnProperty(error)) {
+        errorHandler(errors[error].message)
       }
     }
-    alert(alertText);
   });
 
-  $('.creditCardText').keyup(function() {
-  var foo = $(this).val().split("-").join(""); // remove hyphens
-  if (foo.length > 0) {
-    foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
-  }
-  $(this).val(foo);
-});
+  $('.creditCardText').keyup(function () {
+    var foo = $(this).val().split(" ").join(""); // remove hyphens
+    if (foo.length > 0) {
+      foo = foo.match(new RegExp('.{1,4}', 'g')).join(" ");
+    }
+    $(this).val(foo);
+  });
 
-document.getElementById("amount").innerHTML = parseFloat(ppAmount / 100).toFixed(2);
-//var backButton = document.getElementsByClassName("back")[0];
-//  backButton.onclick = function() {
-//    window.location = 'https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe.html';
-//  };
+  function getDonationAmount() {
+    ppAmount = localStorage.getItem('pandapayDonationAmount');
+    if (localStorage.getItem('pandapayDonorCoverFees') == "true") {
+      return parseFloat(((ppAmount * 1.039 + .30) / 100) * 100).toFixed(2);
+    } else {
+      return parseFloat((ppAmount / 100) * 100).toFixed(2);
+    }
+  }
+  document.getElementById("amount").innerHTML = getDonationAmount();
+
+  var backButton = document.getElementsByClassName("back")[0];
+  backButton.onclick = function () {
+    window.location = 'https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe.html?charityName=' + getAllUrlParams().charityName + '&charityEIN=' + getAllUrlParams().charityEIN + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
+  };
 
   function cc_brand_id(cur_val) {
-  var sel_brand;
+    var sel_brand;
 
-  // the regular expressions check for possible matches as you type, hence the OR operators based on the number of chars
-  // regexp string length {0} provided for soonest detection of beginning of the card numbers this way it could be used for BIN CODE detection also
-
-  //JCB
-  jcb_regex = new RegExp('^(?:2131|1800|35)[0-9]{0,}$'); //2131, 1800, 35 (3528-3589)
-  // American Express
-  amex_regex = new RegExp('^3[47][0-9]{0,}$'); //34, 37
-  // Diners Club
-  diners_regex = new RegExp('^3(?:0[0-59]{1}|[689])[0-9]{0,}$'); //300-305, 309, 36, 38-39
-  // Visa
-  visa_regex = new RegExp('^4[0-9]{0,}$'); //4
-  // MasterCard
-  mastercard_regex = new RegExp('^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[01]|2720)[0-9]{0,}$'); //2221-2720, 51-55
-  maestro_regex = new RegExp('^(5[06789]|6)[0-9]{0,}$'); //always growing in the range: 60-69, started with / not something else, but starting 5 must be encoded as mastercard anyway
-  //Discover
-  discover_regex = new RegExp('^(6011|65|64[4-9]|62212[6-9]|6221[3-9]|622[2-8]|6229[01]|62292[0-5])[0-9]{0,}$');
-  ////6011, 622126-622925, 644-649, 65
-
-
-  // get rid of anything but numbers
-  cur_val = cur_val.replace(/\D/g, '');
-
-  // checks per each, as their could be multiple hits
-  //fix: ordering matter in detection, otherwise can give false results in rare cases
-  if (cur_val.match(jcb_regex)) {
-    sel_brand = "JCB";
-  } else if (cur_val.match(amex_regex)) {
-    sel_brand = "AMEX";
-  } else if (cur_val.match(diners_regex)) {
-    sel_brand = "Diners Club";
-  } else if (cur_val.match(visa_regex)) {
-    sel_brand = "VISA";
-  } else if (cur_val.match(mastercard_regex)) {
-    sel_brand = "MasterCard";
-  } else if (cur_val.match(discover_regex)) {
-    sel_brand = "Discover";
-  } else if (cur_val.match(maestro_regex)) {
-    if (cur_val[0] == '5') { //started 5 must be mastercard
+    //JCB
+    jcb_regex = new RegExp('^(?:2131|1800|35)[0-9]{0,}$'); //2131, 1800, 35 (3528-3589)
+    // American Express
+    amex_regex = new RegExp('^3[47][0-9]{0,}$'); //34, 37
+    // Diners Club
+    diners_regex = new RegExp('^3(?:0[0-59]{1}|[689])[0-9]{0,}$'); //300-305, 309, 36, 38-39
+    // Visa
+    visa_regex = new RegExp('^4[0-9]{0,}$'); //4
+    // MasterCard
+    mastercard_regex = new RegExp('^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[01]|2720)[0-9]{0,}$'); //2221-2720, 51-55
+    maestro_regex = new RegExp('^(5[06789]|6)[0-9]{0,}$'); //always growing in the range: 60-69, started with / not something else, but starting 5 must be encoded as mastercard anyway
+    //Discover
+    discover_regex = new RegExp('^(6011|65|64[4-9]|62212[6-9]|6221[3-9]|622[2-8]|6229[01]|62292[0-5])[0-9]{0,}$');
+    ////6011, 622126-622925, 644-649, 65
+    cur_val = cur_val.replace(/\D/g, '');
+    if (cur_val.match(jcb_regex)) {
+      sel_brand = "JCB";
+    } else if (cur_val.match(amex_regex)) {
+      sel_brand = "AMEX";
+    } else if (cur_val.match(diners_regex)) {
+      sel_brand = "Diners Club";
+    } else if (cur_val.match(visa_regex)) {
+      sel_brand = "VISA";
+    } else if (cur_val.match(mastercard_regex)) {
       sel_brand = "MasterCard";
+    } else if (cur_val.match(discover_regex)) {
+      sel_brand = "Discover";
+    } else if (cur_val.match(maestro_regex)) {
+      if (cur_val[0] == '5') { //started 5 must be mastercard
+        sel_brand = "MasterCard";
+      } else {
+        sel_brand = "Maestro"; //maestro is all 60-69 which is not something else, thats why this condition in the end
+      }
     } else {
-      sel_brand = "Maestro"; //maestro is all 60-69 which is not something else, thats why this condition in the end
+      sel_brand = "Card";
     }
-  } else {
-    sel_brand = "Card";
+
+    return sel_brand;
   }
 
-  return sel_brand;
-}
-
+  function errorHandler(error) {
+    document.getElementById("errorText").innerHTML = 'There was an issue processing your donation, please verify your information and try again.';
+  }
 </script>
 
-<!-- Google Analytics -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-XXXXX-Y', 'auto');
-ga('send', 'pageview');
-</script>
-<!-- End Google Analytics -->
 </html>

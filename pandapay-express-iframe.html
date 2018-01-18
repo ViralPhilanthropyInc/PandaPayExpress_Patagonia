@@ -4,21 +4,23 @@
 <link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.css" rel="stylesheet" type="text/css">
 <link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/normalize.css" rel="stylesheet" type="text/css">
 <div class="ppContainer">
-  <div class="ppHeader ppModalContent">
-    <span id="granteeName" class="granteeName">[Grantee Name]</span>
-    <!-- <span class="close">&times;</span> -->
+  <div class="ppHeader">
+    <span id="granteeName" class="granteeName" style="font-size:20px; line-height:28px;">[Grantee Name]</span>
   </div>
+  <span class="close" style="position: absolute; top: 5vw; right: 5vw;">
+    <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/x-close.png" height="16px" width="16px">
+  </span>
   <hr>
   <div>
-    <div class="ppModalContent ppRegFontBold ppLeftText">
-      <p>This platform provides this donation service to help you direct your funds to effect local impact.</p>
+    <div class="donationInfo" style="padding-right: 20px; padding-left: 20px;">
+      <p>Thank you for supporting local environmental orgnanizations with your donation</p>
     </div>
     <div class="ppDonationInputArea">
-      <span class="inputPrefix">$</span>
-      <input type="text" name="donationAmount" maxlength="7" size="7" class="donationInput" id="donationAmount" autofocus>
+      <input type="text" name="donationAmount" maxlength="8" size="8" class="donationInput" id="donationAmount" value="$" onfocus="this.value = this.value;">
       <br>
-      <span class="mutedReg">USD</span>
-      <p class="mutedDemi">Select your donation amount</p>
+      <span class="usdText">USD</span>
+      <p class="mutedDemi" style="font-size: 12px; letter-spacing: 0.24px; Padding-top: 16px;">Select your donation amount</p>
+      <span id="errorText" class="ppRegFont" style="text-align: center; color: red;"></span>
       <div class="row">
         <div class="col" style="width:25%;">
           <button class="donationAmountBtn" onclick="updateDonation(5.00)">$5</button>
@@ -36,13 +38,15 @@
     </div>
   </div>
   <div class="ppModalContent ppRegFont ppModalFooter">
-    <label class="control control--checkbox">I agree to pay the processing fees
-      <input id="coverFee" type="checkbox" />
-      <div class="control__indicator"></div>
-    </label>
-    <div class="tooltip"><img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/tooltip.png" height="14px" width="14px">
+    <input id="coverFee" type="checkbox" />
+    <label for="coverFee"></label>
+    <span class="checkboxLabel">I agree to pay the processing fees</span>
+    <div class="tooltip">
+      <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/tooltip.png" height="14px" width="14px">
       <span class="tooltiptext">
-        Your donation is securely processed by our partner, PandaPay. They charge a transaction fee of 3.9% + 30&cent; to cover card fees, bank fees, and other processing costs. If you choose not to cover the transaction fee, 3.9% + 30&cent; will be deducted from your donation. </span>
+        Your donation is securely processed by our partner, PandaPay. They charge a transaction fee of 3.9% + 30&cent; to cover card
+        fees, bank fees, and other processing costs. If you choose not to cover the transaction fee, 3.9% + 30&cent; will
+        be deducted from your donation. </span>
     </div>
     <a href="#" id="nextLink" onclick="proceedToPayment()" class="proceedToPayment">Next</a>
   </div>
@@ -54,51 +58,47 @@
   donation = 0.00
   function updateDonation(donationNoFee) {
     donation = donationNoFee
-    document.getElementById("donationAmount").value = parseFloat(donation).toFixed(2);
-    $('a').css({ color: '#333' });
+    document.getElementById("donationAmount").value = '$' + parseFloat(donation).toFixed(2);
+    document.getElementById("nextLink").className = "proceedToPaymentActive";
   }
+
   function proceedToPayment() {
     donation = document.getElementById("donationAmount").value
-    if (donation.length == 0) {
-      console.log("enter a donation amount.");
+    donation = donation.replace("$", "");
+    if (isNaN(donation)) {
+      document.getElementById("errorText").innerHTML = 'Please enter a valid donation amount.';
     } else {
-      if (document.getElementById("coverFee").checked == false) {
-        donation = Math.ceil(donation * 100) / 100;
-        donation = parseFloat(donation).toFixed(2);
-        amount = donation * 100
-        localStorage.setItem('pandapayDonationAmount', amount);
-        window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-payment.html";
+      if (donation.length == 0) {
       } else {
-        donationWithFee = donation * 1 + .30 + donation * .039
-        donationWithFee = Math.ceil(donationWithFee * 100) / 100;
-        donationWithFee = parseFloat(donationWithFee).toFixed(2);
-        amount = donationWithFee * 100
-        localStorage.setItem('pandapayDonationAmount', amount);
-        window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-payment.html";
+        if (document.getElementById("coverFee").checked == false) {
+          localStorage.setItem('pandapayDonorCoverFees', "false");
+        } else {
+          localStorage.setItem('pandapayDonorCoverFees', "true");
+        }
+        localStorage.setItem('pandapayDonationAmount', donation);
+        window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-payment.html?charityName=" + getAllUrlParams().charityName + "&charityEIN=" + getAllUrlParams().charityEIN + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
       }
     }
   };
 
   $("input[name=donationAmount]").keyup(function () {
-    if ($(this).val()) {
-      $('a').css({ color: '#333' });
+    if ($(this).val().length > 1) {
+      document.getElementById("nextLink").className = "proceedToPaymentActive";
     }
     else {
-      $('a').css({ color: '#F8F8F8' });
+      document.getElementById("nextLink").className = "proceedToPayment";
     }
   });
-</script>
 
-<!-- Google Analytics -->
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-XXXXX-Y', 'auto');
-ga('send', 'pageview');
+  $("input[name=donationAmount]").keydown(function (e) {
+    var oldvalue = $(this).val();
+    var field = this;
+    setTimeout(function () {
+      if (field.value.indexOf('$') !== 0) {
+        $(field).val(oldvalue);
+      }
+    }, 1);
+  });
 </script>
-<!-- End Google Analytics -->
 
 </html>
