@@ -23,7 +23,7 @@
   <hr>
   <div>
     <div class="donationInfo" style="padding-right: 20px; padding-left: 20px;">
-      <p>Thank you for supporting local environmental orgnanizations with your donation</p>
+      <p>Thank you for supporting local environmental organizations with your donation</p>
     </div>
     <div class="ppDonationInputArea">
       <input type="text" name="donationAmount" maxlength="8" size="8" class="donationInput" id="donationAmount" value="$" onfocus="this.value = this.value;">
@@ -86,7 +86,7 @@
           localStorage.setItem('pandapayDonorCoverFees', "true");
         }
         localStorage.setItem('pandapayDonationAmount', donation);
-        window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html?charityName=" + getAllUrlParams().charityName + "&charityEIN=" + getAllUrlParams().charityEIN + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
+        window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html?charityName=" + getAllUrlParams().charityName + "&charityEIN=" + getAllUrlParams().charityEIN + '&firstName=' + getAllUrlParams().firstName + '&lastName=' + getAllUrlParams().lastName + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
       }
     }
   };

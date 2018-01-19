@@ -48,8 +48,8 @@ for (i = 0, len = granteeNames.length; i < len; i++) {
 
 var ppCharityName = localStorage.getItem('pandapayCharityName');
 var ppEin = decodeURI(getAllUrlParams().charityEIN);
-var ppFirstName = localStorage.getItem('pandapayFirstName');
-var ppLastName = localStorage.getItem('pandapayLastName');
+var ppFirstName = decodeURI(getAllUrlParams().firstName);
+var ppLastName = decodeURI(getAllUrlParams().lastName);
 var ppAmount = localStorage.getItem('pandapayDonationAmount');
 var ppReceiptEmail = localStorage.getItem('pandapayReceiptEmail');
 var ppCardType = localStorage.getItem('pandapayCardType');
