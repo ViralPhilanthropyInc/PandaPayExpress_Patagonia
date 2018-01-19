@@ -1,5 +1,5 @@
 function successfulTransaction(data) {
-    window.location = "https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe-thank-you.html?charityName=" + getAllUrlParams().charityName + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;
+    window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-thank-you.html?charityName=" + getAllUrlParams().charityName + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;
 };
 
 var closeButton = document.getElementsByClassName("close")[0];

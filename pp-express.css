@@ -50,7 +50,7 @@ input[type=checkbox] {
 
 input[type=checkbox] + label
 {
-background: url('https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/checkbox-no.png');
+background: url('https://express.pandapay.io/patagonia/checkbox-no.png');
 height: 16px;
 width: 16px;
 vertical-align: -2px;
@@ -60,7 +60,7 @@ background-size: 16px;
 }
 input[type=checkbox]:checked + label
 {
-background: url('https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/checkbox-yes.png');
+background: url('https://express.pandapay.io/patagonia/checkbox-yes.png');
 height: 16px;
 width: 16px;
 vertical-align: -2px;
@@ -99,19 +99,17 @@ background-size: 16px;
     fill: #000000;
 }
 
-
-.close:hover,
-.close:focus {
+g#header:hover, 
+g#header:focus {
     text-decoration: none;
     cursor: pointer;
     color: #666666;
     fill: #666666;
     transition: all .3s cubic-bezier(0.25,0.1,0.25,1);
-  }
+}
 
-
-.back:hover,
-.back:focus {
+g#Icons:hover, 
+g#Icons:focus {
     text-decoration: none;
     cursor: pointer;
     color: #666666;
@@ -429,22 +427,22 @@ background-size: 16px;
 
 @font-face {
     font-family: AvenirNextLTPro-Medium;
-    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Medium.otf") format("opentype");
+    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Medium.otf") format("opentype");
 }
 
 @font-face {
     font-family: AvenirNextLTPro;
-    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Regular.otf") format("opentype");
+    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Regular.otf") format("opentype");
 }
 
 @font-face {
     font-family: AvenirNextLTPro-Bold;
-    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Bold.otf") format("opentype");
+    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Bold.otf") format("opentype");
 }
 
 @font-face {
     font-family: AvenirNextLTPro-Demi;
-    src: url("https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/AvenirNextLTPro-Demi.otf") format("opentype");
+    src: url("https://express.pandapay.io/patagonia/AvenirNextLTPro-Demi.otf") format("opentype");
 }
 
 

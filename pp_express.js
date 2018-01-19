@@ -13,7 +13,7 @@ ppModal.innerHTML = "<div class=\"pp-donation-modal-content\" style=\"background
 var ppiframe = document.getElementById("pp-donation-iframe")
 function closeModal() { ppModal.style.display = "none"; }
 function loadPPModal(charityName, charityEIN, firstName, lastName, id, cyberGrantsID, issues, customerNo) {
-	iFrameURL = 'https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe.html?charityName='+ charityName + '&charityEIN=' + charityEIN + '&firstName=' + firstName + '&lastName=' + lastName + '&patagoniaUserID=' + customerNo + '&cyberGrantsID=' + cyberGrantsID + '&issues=' + issues + '&wordpressID=' + id
+	iFrameURL = 'https://express.pandapay.io/patagonia/pandapay-express-iframe.html?charityName='+ charityName + '&charityEIN=' + charityEIN + '&firstName=' + firstName + '&lastName=' + lastName + '&patagoniaUserID=' + customerNo + '&cyberGrantsID=' + cyberGrantsID + '&issues=' + issues + '&wordpressID=' + id
 	ppiframe.src = encodeURI(iFrameURL) ; ppModal.style.display = "block";
 }
 window.onclick = function (event) { if (event.target == ppModal) { closeModal(); } }

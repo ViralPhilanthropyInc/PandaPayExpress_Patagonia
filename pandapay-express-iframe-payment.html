@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html>
 
-<link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.css" rel="stylesheet" type="text/css">
-<link href="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/normalize.css" rel="stylesheet" type="text/css">
+<link href="https://express.pandapay.io/patagonia/pp-express.css" rel="stylesheet" type="text/css">
+<link href="https://express.pandapay.io/patagonia/normalize.css" rel="stylesheet" type="text/css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://d2t45z63lq9zlh.cloudfront.net/panda-v0.0.5.min.js"></script>
 <div class="ppContainer">
   <span class="back" style="position: absolute; top: 5vw; left: 5vw;">
-    <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/back-arrow.svg" class="back" height="16px" width="16px">
+    <svg width="16px" height="16px" viewBox="0 0 11 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs></defs>
+      <g id="Styles" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.800000012">
+          <g id="Icons" transform="translate(-164.000000, -142.000000)" fill="#000000">
+              <g id="icons" transform="translate(75.000000, 58.000000)">
+                  <g id="row5" transform="translate(0.000000, 83.477702)">
+                      <g id="chevron-left" transform="translate(89.150943, 0.000000)">
+                          <path d="M10.3377677,15.1814402 L8.82908285,16.690125 C8.74967839,16.7695295 8.67027392,16.7695295 8.59086945,16.690125 L0.809231738,8.82908285 C0.729827271,8.74967839 0.729827271,8.67027392 0.809231738,8.59086945 L8.59086945,0.809231738 C8.67027392,0.729827271 8.74967839,0.729827271 8.82908285,0.809231738 L10.3377677,2.3179166 C10.4171722,2.39732107 10.4171722,2.47672553 10.3377677,2.55613 L4.14421933,8.74967839 L10.3377677,14.9432268 C10.4171722,15.0226312 10.4171722,15.1020357 10.3377677,15.1814402 L10.3377677,15.1814402 Z" id="back-arrow"></path>
+                      </g>
+                  </g>
+              </g>
+          </g>
+      </g>
+  </svg>
   </span>
   <div class="ppHeader">
     <span id="granteeName" class="granteeName" style="font-size:20px; line-height:28px;">[Grantee Name]</span>
   </div>
   <span class="close" style="position: absolute; top: 5vw; right: 5vw;">
-    <img src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/x-close.svg" class="close" height="16px" width="16px">
+    <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs></defs>
+      <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="header" transform="translate(-400.000000, -8.000000)" fill="#000000">
+              <g id="x-close">
+                  <path d="M410.052877,15.962675 L415.92535,21.8351477 C416.024883,21.9346812 416.024883,22.0342146 415.92535,22.1337481 L414.034215,23.9253499 C413.934681,24.0248834 413.835148,24.0248834 413.735614,23.9253499 L407.962675,18.0528771 L402.090202,23.9253499 L401.891135,23.9253499 L400,22.0342146 L400,21.8351477 L405.872473,15.962675 L400,10.0902022 L400,9.8911353 L401.891135,8 L402.090202,8 L407.962675,13.8724728 L413.835148,8 L414.034215,8 L415.92535,9.8911353 L415.92535,10.0902022 L410.052877,15.962675 L410.052877,15.962675 Z"></path>
+              </g>
+          </g>
+      </g>
+  </svg>
   </span>
   <hr>
   <div class="ppLeftText ppModalContent">
@@ -61,17 +83,13 @@
         </div>
       </form>
       <br>
-      <!--<label class="control control--checkbox ppRegFont">Share my contact info with <span class="granteeName">[Grantee Name]</span>
-      <input id="emailUpdates" type="checkbox"/>
-      <div class="control__indicator"></div>
-    </label>-->
       <p class="finePrint">This platform uses PandaPay to securely process and disburse your charitable donations.
         <a class="infoLink" target="_blank" href="https://www.pandapay.io/poweredby">Click here</a> for more about how it works and the terms of your donation.</p>
     </div>
   </div>
 </div>
 
-<script src="https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pp-express.js"></script>
+<script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
 
 <script>
 
@@ -81,6 +99,8 @@
   // credit card-related form element
   Panda.init('pk_test_iuMlvLlJE-QR9kE49ZFSOw', 'panda_cc_form');
   Panda.on('success', function (cardToken) {
+    document.getElementById("buttonText").innerHTML = "Processing";
+    document.getElementById("Tbutton").disabled = true;
     var email = document.getElementById("receipt_email").value;
     localStorage.setItem('pandapayReceiptEmail', email);
     var cardType = cc_brand_id(document.getElementById("cardNumber").value);
@@ -114,7 +134,9 @@
         successfulTransaction();
       },
       error: function (xhr, status, error) {
-        console.log(error);
+        errorHandler(error)
+        document.getElementById("buttonText").innerHTML = "Donate";
+        document.getElementById("Tbutton").disabled = false;
       }
     });
   });
@@ -140,7 +162,7 @@
   function getDonationAmount() {
     ppAmount = localStorage.getItem('pandapayDonationAmount');
     if (localStorage.getItem('pandapayDonorCoverFees') == "true") {
-      return parseFloat(((ppAmount * 1.039 + .30) / 100) * 100).toFixed(2);
+      return parseFloat(roundTo(ppAmount * 1.039 + .30, 2)).toFixed(2);
     } else {
       return parseFloat((ppAmount / 100) * 100).toFixed(2);
     }
@@ -149,7 +171,7 @@
 
   var backButton = document.getElementsByClassName("back")[0];
   backButton.onclick = function () {
-    window.location = 'https://s3.amazonaws.com/express.pandapay.io/patagonia-dev/pandapay-express-iframe.html?charityName=' + getAllUrlParams().charityName + '&charityEIN=' + getAllUrlParams().charityEIN + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
+    window.location = 'https://express.pandapay.io/patagonia/pandapay-express-iframe.html?charityName=' + getAllUrlParams().charityName + '&charityEIN=' + getAllUrlParams().charityEIN + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
   };
 
   function cc_brand_id(cur_val) {
@@ -198,6 +220,17 @@
   function errorHandler(error) {
     document.getElementById("errorText").innerHTML = 'There was an issue processing your donation, please verify your information and try again.';
   }
+
+  function roundTo(n, digits) {
+     if (digits === undefined) {
+       digits = 0;
+     }
+
+     var multiplicator = Math.pow(10, digits);
+     n = parseFloat((n * multiplicator).toFixed(11));
+     var test =(Math.round(n) / multiplicator);
+     return +(test.toFixed(digits));
+   }
 </script>
 
 </html>
