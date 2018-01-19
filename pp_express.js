@@ -19,11 +19,7 @@ function loadPPModal(charityName, charityEIN, firstName, lastName, id, cyberGran
 window.onclick = function (event) { if (event.target == ppModal) { closeModal(); } }
 
 window.addEventListener('message', function(event) {  
-    if (~event.origin.indexOf('https://express.pandpay.io')) { 
 		if (event.data == "close") {
 			closeModal();
 		}
-    } else { 
-        return; 
-    } 
 }); 

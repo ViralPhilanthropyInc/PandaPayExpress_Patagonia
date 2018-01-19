@@ -89,12 +89,14 @@ background-size: 16px;
 
 .close {
     float: right;
-    color: #666666;
+    color: #000000;
+    fill: #000000;
 }
 
 .back {
     float: left;
-    color: #666666;
+    color: #000000;
+    fill: #000000;
 }
 
 
@@ -103,6 +105,8 @@ background-size: 16px;
     text-decoration: none;
     cursor: pointer;
     color: #666666;
+    fill: #666666;
+    transition: all .3s cubic-bezier(0.25,0.1,0.25,1);
   }
 
 
@@ -111,6 +115,8 @@ background-size: 16px;
     text-decoration: none;
     cursor: pointer;
     color: #666666;
+    fill: #666666;
+    transition: all .3s cubic-bezier(0.25,0.1,0.25,1);
 }
 
 .orange {
