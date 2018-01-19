@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="17px" viewBox="0 0 11 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>back-arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Styles" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.800000012">
+        <g id="Icons" transform="translate(-164.000000, -142.000000)" fill="#666666">
+            <g id="icons" transform="translate(75.000000, 58.000000)">
+                <g id="row5" transform="translate(0.000000, 83.477702)">
+                    <g id="chevron-left" transform="translate(89.150943, 0.000000)">
+                        <path d="M10.3377677,15.1814402 L8.82908285,16.690125 C8.74967839,16.7695295 8.67027392,16.7695295 8.59086945,16.690125 L0.809231738,8.82908285 C0.729827271,8.74967839 0.729827271,8.67027392 0.809231738,8.59086945 L8.59086945,0.809231738 C8.67027392,0.729827271 8.74967839,0.729827271 8.82908285,0.809231738 L10.3377677,2.3179166 C10.4171722,2.39732107 10.4171722,2.47672553 10.3377677,2.55613 L4.14421933,8.74967839 L10.3377677,14.9432268 C10.4171722,15.0226312 10.4171722,15.1020357 10.3377677,15.1814402 L10.3377677,15.1814402 Z" id="back-arrow"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
