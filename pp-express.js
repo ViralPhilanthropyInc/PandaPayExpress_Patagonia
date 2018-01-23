@@ -55,14 +55,14 @@ var ppReceiptEmail = localStorage.getItem('pandapayReceiptEmail');
 var ppCardType = localStorage.getItem('pandapayCardType');
 var ppLastFour = localStorage.getItem('pandapayLastFour');
 
-(function (i, s, o, g, r, a, m) {
-i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-    (i[r].q = i[r].q || []).push(arguments)
-}, i[r].l = 1 * new Date(); a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-104969319-1', 'auto');
+ga('create', 'UA-104969319-1', 'auto', {'allowLinker': true});
+ga('require', 'linker');
+ga('linker:autoLink', ['patagonia.com']);
 ga('set', 'userId', decodeURI(getAllUrlParams().patagoniaUserID));
 ga('set', 'dimension1', decodeURI(getAllUrlParams().cyberGrantsID));
 ga('set', 'dimension2', 'ngo');

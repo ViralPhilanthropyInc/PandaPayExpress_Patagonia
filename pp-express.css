@@ -183,7 +183,7 @@ g#Icons:focus {
 }
 
 .donationInput {
-    font-family: 'AvenirNextLTPro';
+    font-family: 'AvenirNextLTPro-Bold';
     font-size: 56px; 
     font-weight: bold;
     outline: none !important;
@@ -231,6 +231,7 @@ g#Icons:focus {
 	text-decoration: none;
     color: #333;
     opacity: 0.3;
+
 }
 
 .proceedToPaymentActive {
@@ -240,12 +241,14 @@ g#Icons:focus {
 	text-decoration: none;
     color: #FA4616; 
     opacity: '1';
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 1s;
 }
 
 .proceedToPaymentActive:hover {
     border-bottom: 2px solid #FA4616;
     cursor: pointer;
-    transition: all .3s cubic-bezier(0.25,0.1,0.25,1);
+    /*transition: all .3s cubic-bezier(0.25,0.1,0.25,1);*/
 }
 
 .feeCheckBox {
@@ -291,7 +294,7 @@ g#Icons:focus {
 }
 
 .tooltip .tooltiptext {
-    width: 280px;
+    width: 275px;
     bottom: 100%;
     left: 50%; 
     margin-left: -140px;
@@ -336,9 +339,17 @@ g#Icons:focus {
     font-size: 12px;
 }
 
+.ppRegMed {
+    font-family: "AvenirNextLTPro-Medium";
+    font-size: 12px;
+}
+
 .ppDonationDetails {
     font-family: "AvenirNextLTPro-Medium";
-    font-size: 14px;
+    font-size: 9px;
+    padding-top: 10px;
+    line-height: 12px;
+    color: #FA4616;
 }
 
 
@@ -367,7 +378,7 @@ g#Icons:focus {
 
 .finePrint {
     font-family: "AvenirNextLTPro-Medium";
-    font-size: 14px;
+    font-size: 10px;
     line-height: 15px;
     color: #999999;
 }

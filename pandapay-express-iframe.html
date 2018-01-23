@@ -26,7 +26,7 @@
       <p>Thank you for supporting local environmental organizations with your donation</p>
     </div>
     <div class="ppDonationInputArea">
-      <input type="text" name="donationAmount" maxlength="8" size="8" class="donationInput" id="donationAmount" value="$" onfocus="this.value = this.value;">
+      <input type="text" name="donationAmount" maxlength="8" size="8" class="donationInput" id="donationAmount" autofocus value="$" onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"  >
       <br>
       <span class="usdText">USD</span>
       <p class="mutedDemi" style="font-size: 12px; letter-spacing: 0.24px; Padding-top: 16px;">Select your donation amount</p>
