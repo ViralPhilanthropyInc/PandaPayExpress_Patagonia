@@ -2,6 +2,7 @@ body {
     display: block;
     margin: 0px;
     color: #333333;
+    position: fixed;
 }
 
 hr {
@@ -57,6 +58,7 @@ vertical-align: -2px;
 display:inline-block;
 padding: 0 0 0 0px;
 background-size: 16px;
+cursor: pointer;
 }
 input[type=checkbox]:checked + label
 {
@@ -67,6 +69,7 @@ vertical-align: -2px;
 display:inline-block;
 padding: 0 0 0 0px;
 background-size: 16px;
+cursor: pointer;
 }
 
 
@@ -190,15 +193,23 @@ g#Icons:focus {
     border: 0;
     background: #F8F8F8;
     text-align: center;
+    min-width:30px!important;
+    max-width:99.99%!important;
 }
 
 .inputPrefix {
     font-family: 'AvenirNextLTPro';
     font-size: 25px; 
 }
-
-
-
+  
+  input[type="number"]::-webkit-inner-spin-button, 
+  input[type="number"]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+}
 .mutedReg {
     font-family: 'AvenirNextLTPro';
     font-size: 14px;
@@ -303,6 +314,7 @@ g#Icons:focus {
     line-height: 15px;
     font-family: "AvenirNextLTPro-Medium";
     padding: 5px;
+    cursor: pointer;
 }
 
 .ppDonationInputArea {
@@ -402,6 +414,14 @@ g#Icons:focus {
     box-shadow: none;
     -webkit-appearance: none;
 }
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { 
+    .form-control {
+      font-size: 16px;
+    }
+  }
+
 
 .form-control:valid {
   background-color: #fff;

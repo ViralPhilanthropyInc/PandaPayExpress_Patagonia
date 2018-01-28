@@ -30,29 +30,45 @@
             <p>An email receipt will be sent to
                 <span id="customerEmail">[customer email]</span>
             </p>
-            <p>$
-                <span id="amount">0</span> Donation</p>
-            <p>
-                <span id="cardType">[Card Type]</span> ending in
-                <span id="lastFour">[Card]</span>
-            </p>
+            <p>$<span id="amount">0</span> Donation</p>
         </div>
     </div>
     <button id="ppDonationiFrameClose" class="btn black">Close</button>
 </div>
 
 <script src="https://express.pandapay.io/patagonia/pp-express.js"></script>
-
 <script type="text/javascript">
     var btn = document.getElementById("ppDonationiFrameClose");
     btn.onclick = function () {
         window.parent.postMessage("close", "*");
+        enableScroll();
     }
     document.getElementById("amount").innerHTML = (parseFloat(ppAmount / 100)).toFixed(2)
-    document.getElementById("cardType").innerHTML = ppCardType
-    document.getElementById("lastFour").innerHTML = ppLastFour
+    //document.getElementById("cardType").innerHTML = ppCardType
+    //document.getElementById("lastFour").innerHTML = ppLastFour
     document.getElementById("customerEmail").innerHTML = ppReceiptEmail
-
+    var fields = {};
+    fields.clientId = localStorage.getItem('client_id');
+    ga('create', 'UA-104969319-1', 'auto', fields);
+    ga('set', 'location', localStorage.getItem('locationURL'));
+    ga('set', 'userId', decodeURI(getAllUrlParams().patagoniaUserID));
+    ga('set', 'dimension1', decodeURI(getAllUrlParams().cyberGrantsID));
+    ga('set', 'dimension2', 'ngo');
+    ga('set', 'dimension3', decodeURI(getAllUrlParams().issues));
+    ga('set', 'dimension4', decodeURI(getAllUrlParams().wordpressID));
+    ga('send', {
+        hitType: 'event',
+        eventCategory: 'Donation',
+        eventAction: 'Step',
+        eventLabel: 'Step 3'
+      });
+    ga('send', {
+    hitType: 'event',
+    eventCategory: 'Donation',
+    eventAction: 'Complete',
+    eventLabel: '',
+    eventValue: Math.round(ppAmount / 100)
+  });
 </script>
 
 

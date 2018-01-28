@@ -26,23 +26,23 @@
       <p>Thank you for supporting local environmental organizations with your donation</p>
     </div>
     <div class="ppDonationInputArea">
-      <input type="text" name="donationAmount" maxlength="8" size="8" class="donationInput" id="donationAmount" autofocus value="$" onfocus="var temp_value=this.value; this.value=''; this.value=temp_value"  >
+      <span class="donationInput" style="margin-left: -35px; margin-right: -35px;"><span style="color: black;">$</span><input type="number" step="any" pattern="[0-9]*" name="donationAmount" min="1" class="donationInput" id="donationAmount" autofocus></span>
       <br>
       <span class="usdText">USD</span>
       <p class="mutedDemi" style="font-size: 12px; letter-spacing: 0.24px; Padding-top: 16px;">Select your donation amount</p>
       <span id="errorText" class="ppRegFont" style="text-align: center; color: red;"></span>
       <div class="row">
         <div class="col" style="width:25%;">
-          <button class="donationAmountBtn" onclick="updateDonation(5.00)">$5</button>
+          <button class="donationAmountBtn" onclick="updateDonation(5)">$5</button>
         </div>
         <div class="col" style="width:25%;">
-          <button class="donationAmountBtn" onclick="updateDonation(25.00)">$25</button>
+          <button class="donationAmountBtn" onclick="updateDonation(25)">$25</button>
         </div>
         <div class="col" style="width:25%;">
-          <button class="donationAmountBtn" onclick="updateDonation(50.00)">$50</button>
+          <button class="donationAmountBtn" onclick="updateDonation(50)">$50</button>
         </div>
         <div class="col" style="width:25%;">
-          <button class="donationAmountBtn" onclick="updateDonation(100.00)">$100</button>
+          <button class="donationAmountBtn" onclick="updateDonation(100)">$100</button>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
     <span class="checkboxLabel">I agree to pay the processing fees</span>
     <div class="tooltip">
       <img src="https://express.pandapay.io/patagonia/tooltip.png" height="14px" width="14px">
-      <span class="tooltiptext">
+      <span class="tooltiptext" onclick="void(0)">
         Your donation is securely processed by our partner, PandaPay. They charge a transaction fee of 3.9% + 30&cent; to cover card
         fees, bank fees, and other processing costs. If you choose not to cover the transaction fee, 3.9% + 30&cent; will
         be deducted from your donation. </span>
@@ -68,16 +68,19 @@
   donation = 0.00
   function updateDonation(donationNoFee) {
     donation = donationNoFee
-    document.getElementById("donationAmount").value = '$' + parseFloat(donation).toFixed(2);
+    document.getElementById("donationAmount").value = donation;
     document.getElementById("nextLink").className = "proceedToPaymentActive";
+    document.getElementById('donationAmount').style.width = ((donation.toString().length+1) * 30) + 'px';
   }
 
   function proceedToPayment() {
     donation = document.getElementById("donationAmount").value
-    donation = donation.replace("$", "");
+    
     if (isNaN(donation)) {
-      document.getElementById("errorText").innerHTML = 'Please enter a valid donation amount.';
-    } else {
+      document.getElementById("errorText").innerHTML = 'Please enter a valid dollar amount.';
+    } else if (donation < 1) {
+      document.getElementById("errorText").innerHTML = 'Please enter a valid dollar amount.';
+    }else {
       if (donation.length == 0) {
       } else {
         if (document.getElementById("coverFee").checked == false) {
@@ -85,15 +88,14 @@
         } else {
           localStorage.setItem('pandapayDonorCoverFees', "true");
         }
-        localStorage.setItem('pandapayDonationAmount', donation);
+        localStorage.setItem('pandapayDonationAmount', parseFloat((donation / 100) * 100).toFixed(2));
         window.location = "https://express.pandapay.io/patagonia/pandapay-express-iframe-payment.html?charityName=" + getAllUrlParams().charityName + "&charityEIN=" + getAllUrlParams().charityEIN + '&firstName=' + getAllUrlParams().firstName + '&lastName=' + getAllUrlParams().lastName + '&patagoniaUserID=' + getAllUrlParams().patagoniaUserID + '&cyberGrantsID=' + getAllUrlParams().cyberGrantsID + '&issues=' + getAllUrlParams().issues + '&wordpressID=' + getAllUrlParams().wordpressID;;
       }
     }
   };
 
   $("input[name=donationAmount]").keyup(function () {
-    this.value=this.value.replace(/[^\d $ . ]/,'')
-    if ($(this).val().length > 1) {
+    if ($(this).val().length > 0) {
       document.getElementById("nextLink").className = "proceedToPaymentActive";
     }
     else {
@@ -101,15 +103,24 @@
     }
   });
 
-  $("input[name=donationAmount]").keydown(function (e) {
-    var oldvalue = $(this).val();
-    var field = this;
-    setTimeout(function () {
-      if (field.value.indexOf('$') !== 0) {
-        $(field).val(oldvalue);
-      }
-    }, 1);
-  });
+  //$("input[name=donationAmount]").keydown(function (e) {
+  //  var oldvalue = $(this).val();
+  //  var field = this;
+  //  setTimeout(function () {
+  //    if (field.value.indexOf('$') !== 0) {
+  //      $(field).val(oldvalue);
+  //    }
+  //  }, 1);
+  // });
+
+  function resizable (el, factor) {
+  var int = Number(factor) || 7.7;
+  function resize() {el.style.width = ((el.value.length+1) * int) + 'px'}
+  var e = 'keyup,keypress,focus,blur,change'.split(',');
+  for (var i in e) el.addEventListener(e[i],resize,false);
+  resize();
+}
+resizable(document.getElementById('donationAmount'),30);
 </script>
 
 </html>
