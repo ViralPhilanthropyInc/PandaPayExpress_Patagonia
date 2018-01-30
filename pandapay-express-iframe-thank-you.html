@@ -41,7 +41,7 @@
     var btn = document.getElementById("ppDonationiFrameClose");
     btn.onclick = function () {
         window.parent.postMessage("close", "*");
-        enableScroll();
+       // enableScroll();
     }
     document.getElementById("amount").innerHTML = (parseFloat(ppAmount / 100)).toFixed(2)
     //document.getElementById("cardType").innerHTML = ppCardType

@@ -309,8 +309,8 @@ g#Icons:focus {
     bottom: 100%;
     left: 50%; 
     margin-left: -140px;
-    color: #999999;
-    font-size: 10px; 
+    color: #fff;
+    font-size: 12px; 
     line-height: 15px;
     font-family: "AvenirNextLTPro-Medium";
     padding: 5px;
@@ -414,7 +414,6 @@ g#Icons:focus {
     box-shadow: none;
     -webkit-appearance: none;
 }
-
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 
     .form-control {

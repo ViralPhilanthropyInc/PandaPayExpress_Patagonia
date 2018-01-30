@@ -13,7 +13,7 @@ ppModal.innerHTML = "<div class=\"pp-donation-modal-content\" style=\"background
 var ppiframe = document.getElementById("pp-donation-iframe")
 function closeModal() { ppModal.style.display = "none"; }
 function loadPPModal(charityName, charityEIN, firstName, lastName, id, cyberGrantsID, issues, customerNo, pageLocation) {
-	disableScroll()
+	scrollTo(0,0);
 	iFrameURL = encodeURI('https://express.pandapay.io/patagonia/pandapay-express-iframe.html?charityName='+ charityName + '&charityEIN=' + charityEIN + '&firstName=' + firstName + '&lastName=' + lastName + '&patagoniaUserID=' + customerNo + '&cyberGrantsID=' + cyberGrantsID + '&issues=' + issues + '&wordpressID=' + id + '&location=' + pageLocation)
 	iFrameURL = iFrameURL.replace('&amp;','%26');
 	iFrameURL = iFrameURL.replace('&#038;','%26');
@@ -33,7 +33,7 @@ function loadPPModal(charityName, charityEIN, firstName, lastName, id, cyberGran
 
 window.addEventListener('message', function(event) {  
 		if (event.data == "close") {
-			enableScroll();
+			// enableScroll();
 			closeModal();
 			
 		}

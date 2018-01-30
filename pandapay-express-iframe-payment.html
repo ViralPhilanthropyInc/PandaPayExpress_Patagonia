@@ -64,17 +64,17 @@
         <br>
         <div class="row" style="padding-top: 30px">
           <div class="col" style="width: 55%">
-            <input type="tel" class="form-control creditCardText" style="border-right: none;" id="cardNumber" data-panda="credit_card" maxlength="22" placeholder="Credit Card Number"
+            <input type="tel" class="form-control creditCardText" id="cardNumber" style="border-right: none;" data-panda="credit_card" maxlength="19" placeholder="Credit Card Number"
             required>
           </div>
           <div class="col" style="width: 25%;">
-            <input type="tel" class="form-control expirationDate" style="border-right: none;" data-panda="expiration" placeholder="MM/YYYY" maxlength="7" required>
+            <input type="tel" class="form-control expirationDate" id="expiration" style="border-right: none;" data-panda="expiration" placeholder="MM/YYYY" maxlength="7" required>
           </div>
           <div class="col" style="width: 20%">
             <input type="number"  pattern="[0-9]*" class="form-control" data-panda="cvv" placeholder="CVV" required>
           </div>
         </div>
-        <br>
+        <br/>
         <span id="errorText" class="ppDonationDetails" style="font-family: AvenirNextLTPro-medium; font-size: 10px; padding-top: 10px; text-align: center;"></span>
         <div id="tokenize" style="text-align: center;">
           <button class="orange btn" id="Tbutton"  style="margin-top: 30px;" type="submit">
@@ -99,6 +99,8 @@
   // credit card-related form element
   Panda.init('pk_test_iuMlvLlJE-QR9kE49ZFSOw', 'panda_cc_form');
   Panda.on('success', function (cardToken) {
+    document.getElementById("expiration").className = "form-control";
+    document.getElementById("cardNumber").className = "form-control";
     document.getElementById("buttonText").innerHTML = "Processing";
     document.getElementById("Tbutton").disabled = true;
     var email = document.getElementById("receipt_email").value;
@@ -142,12 +144,7 @@
   });
 
   Panda.on('error', function (errors) {
-    var alertText = ""
-    for (var error in errors) {
-      if (errors.hasOwnProperty(error)) {
-        errorHandler(errors[error].message)
-      }
-    }
+        errorHandler(JSON.stringify(errors));
   });
 
   $('.creditCardText').keyup(function () {
@@ -159,8 +156,10 @@
     $(this).val(foo);
    });
 
-   $('.expirationDate').keyup(function () {
-     console.log('test');
+   $('.expirationDate').keyup(function (e) {
+    if(e.keyCode == 46) {
+    }else if (e.keyCode == 8) {
+    } else {
     var foo = $(this).val().split(" ").join("");
     // remove slash
     if (foo.length >= 2) {
@@ -168,6 +167,7 @@
     foo = foo.substr(0,2)+"/"+foo.substr(2);
     }
     $(this).val(foo);
+  }
    });
 
 
@@ -230,6 +230,22 @@
   }
 
   function errorHandler(error) {
+    if (error.includes("Year is invalid") ) {
+      document.getElementById("expiration").style.border = "1px solid #FA4616";
+    } else {
+      document.getElementById("expiration").style.border = "1px solid #CCCCCC";
+      document.getElementById("expiration").style.borderRight = "none";
+    };
+
+    if (error.includes("Number is invalid") ) {
+      document.getElementById("cardNumber").style.border = "1px solid #FA4616";
+    } else if (error.includes("Card type is invalid") ) {
+      document.getElementById("cardNumber").style.border = "1px solid #FA4616";
+    } else {
+      document.getElementById("cardNumber").style.border = "1px solid #CCCCCC";
+      document.getElementById("cardNumber").style.borderRight = "none";
+    };
+
     document.getElementById("errorText").innerHTML = 'There was an issue processing your donation, please verify your information and try again.';
   }
 
